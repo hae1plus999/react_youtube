@@ -1,5 +1,4 @@
 import React from "react";
-import {format, register} from 'timeago.js';
 import { formatAgo } from "../util/date";
 import {useNavigate} from 'react-router-dom';
 

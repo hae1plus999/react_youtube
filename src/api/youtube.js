@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default class Youtube {
     constructor(apiClient) {
         this.apiClient = apiClient;
@@ -11,24 +9,23 @@ export default class Youtube {
 
     async channelImageURL(id) {
         return this.apiClient
-            .channels({params: {part: 'snippet', id}})
+            .channels({ params: { part: 'snippet', id } })
             .then((res) => res.data.items[0].snippet.thumbnails.default.url);
     }
 
     async relatedVideos(id) {
         return this.apiClient.search({
-            params: {
-                part: 'snippet',
-                maxResults: 25,
-                type: 'video',
-                relatedToVideoId: id
-            },
-        })
-        .then((res) => res.data.items.map((item) => ({...item, id: item.id.videoId}))
-        );
+                params: {
+                    part: 'snippet',
+                    maxResults: 25,
+                    type: 'video',
+                    relatedToVideoId: id
+                },
+            })
+            .then((res) => res.data.items.map((item) => ({...item, id: item.id.videoId })));
     }
 
-    async #searchByKeyword(keyword) {
+    async# searchByKeyword(keyword) {
         return this.apiClient
             .search({
                 params: {
@@ -39,10 +36,10 @@ export default class Youtube {
                 },
             })
             .then((res) => res.data.items)
-            .then((items) => items.map((item) => ({...item, id: item.id.videoId})));
+            .then((items) => items.map((item) => ({...item, id: item.id.videoId })));
     }
 
-    async #mostPopular(keyword) {
+    async# mostPopular(keyword) {
         return this.apiClient
             .videos({
                 params: {
